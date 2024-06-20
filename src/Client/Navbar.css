@@ -1,0 +1,14 @@
+.ahover {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: white;
+}
+
+.ahover:hover {
+  transition: 0.5s;
+}
+
+.ahover:hover span {
+
+  color: yellow;
+  text-decoration: underline;
+}

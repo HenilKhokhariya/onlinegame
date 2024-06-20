@@ -1,0 +1,53 @@
+/* Navbar */
+.nav-link {
+  color: white;
+  font-size: small;
+  transition: 0.5s;
+}
+
+.nav-link:hover {
+  text-decoration: none;
+  color: aqua;
+}
+
+
+
+
+
+ul {}
+
+ul li {
+  text-decoration: none;
+  list-style: none;
+  margin: 20px;
+}
+
+ul li a {
+  padding: 20px;
+}
+
+.table-dark {
+  background: black;
+}
+
+.gameShow {
+  width: 100%;
+  overflow: scroll;
+}
+
+/* Login */
+.login-back {
+  background-image: linear-gradient(rgba(26, 26, 26, 0.421), rgba(46, 46, 46, 0.621)), url('../Image/Admin/login.jpeg');
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  background-size: cover;
+
+}
+
+.login-box {
+  /* margin-top: 6%;*/
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
