@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ClientNavbar from "./ClientNavbar";
 import { useLocation } from "react-router-dom";
+import Loader from "./Loader";
 
 export default function Top() {
   const location = useLocation();
   const [cate, setCate] = useState(location.pathname.split("/")[2]);
+  const [loader, setLoader] = useState(true);
 
   const [date, setData] = useState([]);
   const getData = async () => {
-    await fetch("https://online-q3u9.onrender.com/api/top", {
+    await fetch("http://localhost:5000/api/top", {
       method: "Post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: cate }),
@@ -16,6 +18,7 @@ export default function Top() {
       const data = await res.json();
       setData(data);
     });
+    setLoader(false);
   };
   useEffect(() => {
     getData();
@@ -28,6 +31,7 @@ export default function Top() {
   return (
     <div className="container-fluid">
       <ClientNavbar />
+      <Loader loader={loader} />
       <div className="container-fluid" style={{}}>
         <h1 className="alert alert-dark pl-3">{cate}</h1>
         <div className="row">{dataShow.length ? dataShow : notGame}</div>

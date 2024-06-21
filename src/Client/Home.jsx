@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import ClientNavbar from "./ClientNavbar";
 import "./Client.css";
-
+import Loader from "./Loader";
 export default function Home() {
   const [date, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
   const getData = async () => {
-    await fetch("https://online-q3u9.onrender.com/api/Allgame", {
+    await fetch("http://localhost:5000/api/Allgame", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {
       const data = await res.json();
       setData(data);
     });
+    setLoader(false);
   };
   useEffect(() => {
     getData();
@@ -22,6 +24,7 @@ export default function Home() {
   return (
     <div className="container-fluid">
       <ClientNavbar />
+      <Loader loader={loader} />
       <div className="container-fluid" style={{}}>
         <div className="row">
           <h1 className="alert alert-dark pl-3">Best Game</h1>

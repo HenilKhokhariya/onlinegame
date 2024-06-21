@@ -20,7 +20,7 @@ export default function Login() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await fetch("https://online-q3u9.onrender.com/api/AdminLogin", {
+    await fetch("http://localhost:5000/api/AdminLogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

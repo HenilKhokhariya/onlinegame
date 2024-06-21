@@ -5,15 +5,18 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import Loader from "../Client/Loader";
 export default function Category() {
   if (!window.sessionStorage.getItem("Admin")) {
     window.location.href = "/Admin/Login";
   }
   const [category, setCategory] = useState("");
   const [cate, setCate] = useState([]);
+  const [loader, setLoader] = useState(true);
   const handleSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
-    await fetch("https://online-q3u9.onrender.com/api/addCate", {
+    await fetch("http://localhost:5000/api/addCate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: category.trim() }),
@@ -28,19 +31,21 @@ export default function Category() {
         getCategory();
       }
     });
+    setLoader(false);
   };
   const getCategory = async (req, res) => {
-    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
-      async (res) => {
-        const data = await res.json();
+    setLoader(true);
+    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
+      const data = await res.json();
 
-        setCate(data);
-      }
-    );
+      setCate(data);
+    });
+    setLoader(false);
   };
 
   const handleCategroyRemove = async (id) => {
-    await fetch("https://online-q3u9.onrender.com/api/deleteCate", {
+    setLoader(true);
+    await fetch("http://localhost:5000/api/deleteCate", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ aid: id }),
@@ -55,6 +60,7 @@ export default function Category() {
         getCategory();
       }
     });
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -64,6 +70,7 @@ export default function Category() {
     <div className="container-fluide">
       <NotificationContainer />
       <Navbar />
+      <Loader loader={loader} />
       <div className="container">
         <div className="alert alert-success fs-2 ">CATEGORY</div>
         <div className="row">

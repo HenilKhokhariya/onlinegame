@@ -5,6 +5,7 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import Loader from "../Client/Loader";
 
 export default function DataScraping() {
   if (!window.sessionStorage.getItem("Admin")) {
@@ -32,10 +33,11 @@ export default function DataScraping() {
     top: "",
   });
   const [Url, setUrl] = useState("");
-
+  const [loader, setLoader] = useState(false);
   const handleSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
-    await fetch("https://online-q3u9.onrender.com/api/data", {
+    await fetch("http://localhost:5000/api/data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: Url }),
@@ -62,11 +64,13 @@ export default function DataScraping() {
         top: "None",
       });
     });
+    setLoader(false);
   };
 
   const handleFormSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
-    await fetch("https://online-q3u9.onrender.com/api/addscrapdata", {
+    await fetch("http://localhost:5000/api/addscrapdata", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -120,6 +124,7 @@ export default function DataScraping() {
         }
       })
       .catch((e) => console.error(e));
+    setLoader(false);
   };
   const handleFormdata = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -129,6 +134,7 @@ export default function DataScraping() {
     <div className="container-fulid">
       <NotificationContainer />
       <Navbar />
+      <Loader loader={loader} />
       <div className="container">
         {/* Link  */}
         <div className="alert alert-success fs-2 ">

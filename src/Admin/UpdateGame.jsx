@@ -5,6 +5,7 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import Loader from "../Client/Loader";
 export default function UpdateGame() {
   if (!window.sessionStorage.getItem("Admin")) {
     window.location.href = "/Admin/Login";
@@ -12,6 +13,7 @@ export default function UpdateGame() {
   const location = useLocation();
   const Uid = location.pathname.split("/", 4)[3];
   const [cate, setCate] = useState([]);
+  const [loader, setLoader] = useState(true);
   const [appData, setAppData] = useState({
     id: Uid,
     appname: "",
@@ -27,7 +29,8 @@ export default function UpdateGame() {
     top: "",
   });
   const getData = async () => {
-    await fetch(`https://online-q3u9.onrender.com/api/findCate`, {
+    setLoader(true);
+    await fetch(`http://localhost:5000/api/findCate`, {
       method: "Post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ id: Uid }),
@@ -56,10 +59,12 @@ export default function UpdateGame() {
       });
       console.log(await data);
     });
+    setLoader(false);
   };
   const handleSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
-    await fetch("https://online-q3u9.onrender.com/api/updategame", {
+    await fetch("http://localhost:5000/api/updategame", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(appData),
@@ -74,6 +79,7 @@ export default function UpdateGame() {
         }
       })
       .catch((err) => console.log(err));
+    setLoader(false);
   };
   const handleChange = (e) => {
     setAppData({ ...appData, [e.target.name]: e.target.value });
@@ -81,17 +87,17 @@ export default function UpdateGame() {
   };
 
   const getCategory = async (req, res) => {
-    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
-      async (res) => {
-        const data = await res.json();
+    setLoader(true);
+    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
+      const data = await res.json();
 
-        setCate(
-          data.map((v, i) => {
-            return v.name;
-          })
-        );
-      }
-    );
+      setCate(
+        data.map((v, i) => {
+          return v.name;
+        })
+      );
+    });
+    setLoader(false);
   };
   useEffect(() => {
     getData();
@@ -102,6 +108,7 @@ export default function UpdateGame() {
     <div className="container-fluid">
       <NotificationContainer />
       <Navbar />
+      <Loader loader={loader} />
       <div className="container">
         <div className="row alert alert-success">
           <div className="col-lg-11 pt-2 col-8">

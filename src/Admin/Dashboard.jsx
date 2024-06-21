@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Admin.css";
 import Navbar from "./Navbar";
+import Loader from "../Client/Loader";
 
 export default function Dashboard() {
   if (!window.sessionStorage.getItem("Admin")) {
@@ -11,14 +12,16 @@ export default function Dashboard() {
     cat: "",
     top: "",
   });
+  const [loader, setLoader] = useState(true);
   const getData = async (req, res) => {
-    await fetch("https://online-q3u9.onrender.com/api/Dashbord", {
+    await fetch("http://localhost:5000/api/Dashbord", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {
       const data = await res.json();
       setBordData(data);
     });
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -28,6 +31,7 @@ export default function Dashboard() {
     <>
       <div className="container-fluid">
         <Navbar />
+        <Loader loader={loader} />
         <div className="container">
           <h1 className="alert alert-success fs-1 fw-bold text-center ">
             Dashboard

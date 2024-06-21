@@ -5,6 +5,7 @@ import {
   NotificationManager,
 } from "react-notifications";
 import axios from "axios";
+import Loader from "../Client/Loader";
 export default function Game() {
   if (!window.sessionStorage.getItem("Admin")) {
     window.location.href = "/Admin/Login";
@@ -24,28 +25,30 @@ export default function Game() {
 
   const [cate, setCate] = useState([]);
   const [file1, setFile1] = useState({});
+  const [loader, setLoader] = useState(true);
 
   const handleChange = (e) => {
     setAppData({ ...appData, [e.target.name]: e.target.value });
   };
   const getCategory = async (req, res) => {
-    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
-      async (res) => {
-        const data = await res.json();
+    setLoader(true);
+    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
+      const data = await res.json();
 
-        setCate(
-          data.map((v, i) => {
-            return v.name;
-          })
-        );
-      }
-    );
+      setCate(
+        data.map((v, i) => {
+          return v.name;
+        })
+      );
+    });
+    setLoader(false);
   };
   const handleImageChange = (e) => {
     setFile1(e.target.files[0]);
   };
 
   const handleSubmit = async (e) => {
+    setLoader(true);
     e.preventDefault();
     const formdata = new FormData();
     formdata.append("file", file1);
@@ -59,7 +62,7 @@ export default function Game() {
     formdata.append("version", appData.version);
     formdata.append("lastup", appData.lastup);
     await axios
-      .post("https://online-q3u9.onrender.com/api/AddGame", formdata, {
+      .post("http://localhost:5000/api/AddGame", formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(async (res) => {
@@ -74,6 +77,7 @@ export default function Game() {
           NotificationManager.error("Not Upload", "Cancle", 2000);
         }
       });
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -83,6 +87,7 @@ export default function Game() {
     <div className="container-fluide">
       <NotificationContainer />
       <Navbar />
+      <Loader loader={loader} />
       <div className="container">
         <div className="alert alert-success fs-2">Game</div>
         <form onSubmit={handleSubmit}>

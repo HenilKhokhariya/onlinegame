@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import ClientNavbar from "./ClientNavbar";
 import { useLocation } from "react-router-dom";
 import "./Client.css";
+import Loader from "./Loader";
 
 export default function AppDetailes() {
   const location = useLocation();
+  const [loader, setLoader] = useState(true);
   const Uid = location.pathname.split("/", 4)[2];
   const [similarGameData, setSimilarGameData] = useState([]);
   const [appData, setAppData] = useState({
@@ -21,7 +23,7 @@ export default function AppDetailes() {
     lastup: "",
   });
   const getData = async () => {
-    await fetch(`https://online-q3u9.onrender.com/api/findCate`, {
+    await fetch(`http://localhost:5000/api/findCate`, {
       method: "Post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ id: Uid }),
@@ -48,6 +50,7 @@ export default function AppDetailes() {
         reating: data[0].reating,
       });
     });
+    setLoader(false);
   };
 
   useEffect(() => {
@@ -59,7 +62,7 @@ export default function AppDetailes() {
   }, [appData.category]);
 
   const getSimilarGame = async () => {
-    await fetch("https://online-q3u9.onrender.com/api/SimilarGame", {
+    await fetch("http://localhost:5000/api/SimilarGame", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ category: appData.category }),
@@ -75,6 +78,7 @@ export default function AppDetailes() {
   return (
     <div className="container-fluid">
       <ClientNavbar />
+      <Loader loader={loader} />
       <div className="container">
         {/* Icon */}
         <div className="row mb-5">
@@ -339,41 +343,7 @@ const PostImg = ({ appData }) => {
             className="active"
           ></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-          <li data-target="#myCarousel" data-slide-to="3"></li>
         </ol>
-
-        <div className="carousel-inner">
-          <div className="item active">
-            <img
-              className="ps-5"
-              src={appData.post1}
-              alt="Los Angeles"
-              style={{ width: "45%", float: "left", height: "400px" }}
-            />
-            <img
-              className="ps-5"
-              src={appData.post2}
-              alt="Chicago"
-              style={{ width: "50%", height: "400px" }}
-            />
-          </div>
-
-          <div className="item">
-            <img
-              src={appData.post3}
-              className="ps-5"
-              alt="New york"
-              style={{ width: "45%", float: "left", height: "400px" }}
-            />
-            <img
-              src={appData.post4}
-              className="ps-5"
-              alt="New york"
-              style={{ width: "50%", height: "400px" }}
-            />
-          </div>
-        </div>
 
         <a
           className="left carousel-control"

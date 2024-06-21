@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import ClientNavbar from "./ClientNavbar";
 import "./Client.css";
+import Loader from "./Loader";
 
 export default function Category() {
   const [catData, setCateData] = useState([]);
+  const [loader, setLoader] = useState(true);
   const getCategory = async () => {
-    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
-      async (res) => {
-        const data = await res.json();
-        setCateData(data);
-      }
-    );
+    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
+      const data = await res.json();
+      setCateData(data);
+    });
+    setLoader(false);
   };
   useEffect(() => {
     getCategory();
@@ -27,6 +28,7 @@ export default function Category() {
   return (
     <div className="container-fluid">
       <ClientNavbar />
+      <Loader loader={loader} />
       <div className="container">
         <h1 className="category-title">Category</h1>
         <div className="row mt-5">{categorylist}</div>

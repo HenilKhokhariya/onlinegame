@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ClientNavbar from "./ClientNavbar";
+import Loader from "./Loader";
 
 export default function Search() {
   const [searchData, setSearchData] = useState("");
+  const [loader, setLoader] = useState(true);
   const [data, setData] = useState([]);
   const getSerachData = async (e) => {
-    await fetch(`https://online-q3u9.onrender.com/api/serachgame`, {
+    await fetch(`http://localhost:5000/api/serachgame`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: searchData }),
@@ -14,6 +16,7 @@ export default function Search() {
       setData(data);
       console.log(data);
     });
+    setLoader(false);
   };
   useEffect(() => {
     getSerachData();
@@ -30,6 +33,7 @@ export default function Search() {
   return (
     <div className="container-fluid">
       <ClientNavbar />
+      <Loader loader={loader} />
       <div className="container">
         <div className="alert alert-success fs-2 ">
           APP

@@ -5,27 +5,32 @@ import {
   NotificationContainer,
   NotificationManager,
 } from "react-notifications";
+import Loader from "../Client/Loader";
 export default function GameShow() {
   if (!window.sessionStorage.getItem("Admin")) {
     window.location.href = "/Admin/Login";
   }
   const [searchData, setSearchData] = useState("");
   const [data, setData] = useState([]);
+  const [loader, setLoader] = useState(true);
   const getData = async (req, res) => {
-    await fetch("https://online-q3u9.onrender.com/api/Allgame", {
+    setLoader(true);
+    await fetch("http://localhost:5000/api/Allgame", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {
       const data = await res.json();
       setData(data);
     });
+    setLoader(false);
   };
   useEffect(() => {
     getData();
   }, []);
 
   const getSerachData = async (e) => {
-    await fetch(`https://online-q3u9.onrender.com/api/serachgame`, {
+    setLoader(true);
+    await fetch(`http://localhost:5000/api/serachgame`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: searchData }),
@@ -33,6 +38,7 @@ export default function GameShow() {
       const data = await res.json();
       setData(data);
     });
+    setLoader(false);
   };
   useEffect(() => {
     getSerachData();
@@ -50,6 +56,7 @@ export default function GameShow() {
     <div className="container-fluid">
       <NotificationContainer />
       <Navbar />
+      <Loader loader={loader} />
       <div className="container">
         <div className="alert alert-success fs-2 ">
           APP
@@ -104,7 +111,7 @@ export default function GameShow() {
 
 const ShowData = ({ value, index }) => {
   const gameRemove = async (id) => {
-    await fetch("https://online-q3u9.onrender.com/api/deletegame", {
+    await fetch("http://localhost:5000/api/deletegame", {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ aid: id }),
