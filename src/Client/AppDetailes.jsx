@@ -344,7 +344,37 @@ const PostImg = ({ appData }) => {
           ></li>
           <li data-target="#myCarousel" data-slide-to="1"></li>
         </ol>
+        <div className="carousel-inner">
+          <div className="item active">
+            <img
+              className="ps-5"
+              src={appData.post1}
+              alt="Los Angeles"
+              style={{ width: "45%", float: "left", height: "400px" }}
+            />
+            <img
+              className="ps-5"
+              src={appData.post2}
+              alt="Chicago"
+              style={{ width: "50%", height: "400px" }}
+            />
+          </div>
 
+          <div className="item">
+            <img
+              src={appData.post3}
+              className="ps-5"
+              alt="New york"
+              style={{ width: "45%", float: "left", height: "400px" }}
+            />
+            <img
+              src={appData.post4}
+              className="ps-5"
+              alt="New york"
+              style={{ width: "50%", height: "400px" }}
+            />
+          </div>
+        </div>
         <a
           className="left carousel-control"
           href="#myCarousel"
