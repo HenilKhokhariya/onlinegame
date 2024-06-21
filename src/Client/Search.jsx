@@ -7,7 +7,7 @@ export default function Search() {
   const [loader, setLoader] = useState(true);
   const [data, setData] = useState([]);
   const getSerachData = async (e) => {
-    await fetch(`http://localhost:5000/api/serachgame`, {
+    await fetch(`https://online-q3u9.onrender.com/api/serachgame`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: searchData }),

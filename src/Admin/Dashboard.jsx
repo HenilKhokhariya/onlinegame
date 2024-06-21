@@ -14,7 +14,7 @@ export default function Dashboard() {
   });
   const [loader, setLoader] = useState(true);
   const getData = async (req, res) => {
-    await fetch("http://localhost:5000/api/Dashbord", {
+    await fetch("https://online-q3u9.onrender.com/api/Dashbord", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {

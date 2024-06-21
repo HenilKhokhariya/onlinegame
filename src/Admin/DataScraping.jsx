@@ -37,7 +37,7 @@ export default function DataScraping() {
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    await fetch("http://localhost:5000/api/data", {
+    await fetch("https://online-q3u9.onrender.com/api/data", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: Url }),
@@ -70,7 +70,7 @@ export default function DataScraping() {
   const handleFormSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    await fetch("http://localhost:5000/api/addscrapdata", {
+    await fetch("https://online-q3u9.onrender.com/api/addscrapdata", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

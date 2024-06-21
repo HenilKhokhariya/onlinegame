@@ -16,7 +16,7 @@ export default function Category() {
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    await fetch("http://localhost:5000/api/addCate", {
+    await fetch("https://online-q3u9.onrender.com/api/addCate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: category.trim() }),
@@ -35,17 +35,19 @@ export default function Category() {
   };
   const getCategory = async (req, res) => {
     setLoader(true);
-    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
-      const data = await res.json();
+    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
+      async (res) => {
+        const data = await res.json();
 
-      setCate(data);
-    });
+        setCate(data);
+      }
+    );
     setLoader(false);
   };
 
   const handleCategroyRemove = async (id) => {
     setLoader(true);
-    await fetch("http://localhost:5000/api/deleteCate", {
+    await fetch("https://online-q3u9.onrender.com/api/deleteCate", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ aid: id }),

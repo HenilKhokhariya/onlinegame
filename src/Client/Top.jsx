@@ -10,7 +10,7 @@ export default function Top() {
 
   const [date, setData] = useState([]);
   const getData = async () => {
-    await fetch("http://localhost:5000/api/top", {
+    await fetch("https://online-q3u9.onrender.com/api/top", {
       method: "Post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: cate }),

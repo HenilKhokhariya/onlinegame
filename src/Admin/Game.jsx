@@ -32,15 +32,17 @@ export default function Game() {
   };
   const getCategory = async (req, res) => {
     setLoader(true);
-    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
-      const data = await res.json();
+    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
+      async (res) => {
+        const data = await res.json();
 
-      setCate(
-        data.map((v, i) => {
-          return v.name;
-        })
-      );
-    });
+        setCate(
+          data.map((v, i) => {
+            return v.name;
+          })
+        );
+      }
+    );
     setLoader(false);
   };
   const handleImageChange = (e) => {
@@ -62,7 +64,7 @@ export default function Game() {
     formdata.append("version", appData.version);
     formdata.append("lastup", appData.lastup);
     await axios
-      .post("http://localhost:5000/api/AddGame", formdata, {
+      .post("https://online-q3u9.onrender.com/api/AddGame", formdata, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(async (res) => {

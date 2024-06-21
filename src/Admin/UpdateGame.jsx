@@ -30,7 +30,7 @@ export default function UpdateGame() {
   });
   const getData = async () => {
     setLoader(true);
-    await fetch(`http://localhost:5000/api/findCate`, {
+    await fetch(`https://online-q3u9.onrender.com/api/findCate`, {
       method: "Post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ id: Uid }),
@@ -64,7 +64,7 @@ export default function UpdateGame() {
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    await fetch("http://localhost:5000/api/updategame", {
+    await fetch("https://online-q3u9.onrender.com/api/updategame", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(appData),
@@ -88,15 +88,17 @@ export default function UpdateGame() {
 
   const getCategory = async (req, res) => {
     setLoader(true);
-    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
-      const data = await res.json();
+    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
+      async (res) => {
+        const data = await res.json();
 
-      setCate(
-        data.map((v, i) => {
-          return v.name;
-        })
-      );
-    });
+        setCate(
+          data.map((v, i) => {
+            return v.name;
+          })
+        );
+      }
+    );
     setLoader(false);
   };
   useEffect(() => {

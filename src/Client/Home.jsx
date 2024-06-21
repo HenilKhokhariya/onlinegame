@@ -6,7 +6,7 @@ export default function Home() {
   const [date, setData] = useState([]);
   const [loader, setLoader] = useState(true);
   const getData = async () => {
-    await fetch("http://localhost:5000/api/Allgame", {
+    await fetch("https://online-q3u9.onrender.com/api/Allgame", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {

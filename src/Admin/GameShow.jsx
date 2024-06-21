@@ -15,7 +15,7 @@ export default function GameShow() {
   const [loader, setLoader] = useState(true);
   const getData = async (req, res) => {
     setLoader(true);
-    await fetch("http://localhost:5000/api/Allgame", {
+    await fetch("https://online-q3u9.onrender.com/api/Allgame", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async (res) => {
@@ -30,7 +30,7 @@ export default function GameShow() {
 
   const getSerachData = async (e) => {
     setLoader(true);
-    await fetch(`http://localhost:5000/api/serachgame`, {
+    await fetch(`https://online-q3u9.onrender.com/api/serachgame`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ data: searchData }),
@@ -111,7 +111,7 @@ export default function GameShow() {
 
 const ShowData = ({ value, index }) => {
   const gameRemove = async (id) => {
-    await fetch("http://localhost:5000/api/deletegame", {
+    await fetch("https://online-q3u9.onrender.com/api/deletegame", {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ aid: id }),

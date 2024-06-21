@@ -23,7 +23,7 @@ export default function AppDetailes() {
     lastup: "",
   });
   const getData = async () => {
-    await fetch(`http://localhost:5000/api/findCate`, {
+    await fetch(`https://online-q3u9.onrender.com/api/findCate`, {
       method: "Post",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ id: Uid }),
@@ -62,7 +62,7 @@ export default function AppDetailes() {
   }, [appData.category]);
 
   const getSimilarGame = async () => {
-    await fetch("http://localhost:5000/api/SimilarGame", {
+    await fetch("https://online-q3u9.onrender.com/api/SimilarGame", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ category: appData.category }),

@@ -7,10 +7,12 @@ export default function Category() {
   const [catData, setCateData] = useState([]);
   const [loader, setLoader] = useState(true);
   const getCategory = async () => {
-    await fetch("http://localhost:5000/api/allCate").then(async (res) => {
-      const data = await res.json();
-      setCateData(data);
-    });
+    await fetch("https://online-q3u9.onrender.com/api/allCate").then(
+      async (res) => {
+        const data = await res.json();
+        setCateData(data);
+      }
+    );
     setLoader(false);
   };
   useEffect(() => {
